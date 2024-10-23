@@ -19,7 +19,7 @@ public:
     void runPhoneBook(PhoneBook phonebook);
     void addContact();
     void searchContact();
-    void exit();
+    
 };
 
 #endif
