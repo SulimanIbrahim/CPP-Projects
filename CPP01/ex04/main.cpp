@@ -46,5 +46,8 @@ int main (int ac, char **av)
             fileReplace.close();
             file.close();
         }
+    } else{
+         std::cerr << "\033[1;31mBad arguments " << std::endl;
+                return 1;
     }
 }
