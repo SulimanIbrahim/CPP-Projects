@@ -1,17 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Utils.hpp"
 
-void replace_line(std::string& line, std::string& search, std::string& replace)
-{
-    size_t pos = 0;
-    while((pos = line.find(search, pos)) != std::string::npos)
-    {
-        line.erase(pos, search.length());
-        line.insert(pos, replace);
-        pos = replace.length();
-    }
-}
+
 
 int main (int ac, char **av)
 {
@@ -45,14 +37,14 @@ int main (int ac, char **av)
             while (!file.eof()){
                 i = -1;
                 std::getline(file, line);
-                replace_line(line, search, replace);
+                Utils::replace_line(line, search, replace);
                 if (!file.eof())
                     fileReplace << line + "\n";
                 else
                     fileReplace << line;
             }
             fileReplace.close();
-        file.close();
+            file.close();
         }
     }
 }
