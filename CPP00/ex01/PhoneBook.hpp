@@ -13,13 +13,24 @@ private:
     int         contactCount;
     int  oldestIndex;
     Contact contacts[8];
+    void addContact();
+    void searchContact();
+    void displayContactDetails(Contact& contact) const;
+    void displayContactList() const;
+    int getValidContactIndex() const;
+
 public:
     PhoneBook();
     ~PhoneBook();
     void runPhoneBook(PhoneBook phonebook);
-    void addContact();
-    void searchContact();
-    
+};
+
+class Car{
+    private:
+        std::string name;
+        int price;
+    public:
+        Car(int price , std::string name);
 };
 
 #endif
