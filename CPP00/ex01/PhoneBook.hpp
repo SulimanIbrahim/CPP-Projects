@@ -25,12 +25,4 @@ public:
     void runPhoneBook(PhoneBook phonebook);
 };
 
-class Car{
-    private:
-        std::string name;
-        int price;
-    public:
-        Car(int price , std::string name);
-};
-
 #endif
