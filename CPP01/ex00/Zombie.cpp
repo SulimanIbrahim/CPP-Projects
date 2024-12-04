@@ -27,6 +27,7 @@ Zombie* Zombie::newZombie( std::string name )
 {
     Zombie *zombie = new Zombie();
     zombie->setName(name);
+    std::cout << "Zombie " << name << " is born" << std::endl;
     return zombie;
 }
 
