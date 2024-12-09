@@ -3,9 +3,10 @@ NAME = Zombie
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
+HEADERS = Zombie.hpp
 SRC = main.cpp Zombie.cpp
 OBJ = $(SRC:%.cpp=%.o)
-HEADERS = Zombie.hpp
+
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(HEADERS)
