@@ -58,8 +58,8 @@ int Fixed::toInt( void ) const
 
 std::ostream& operator<<(std::ostream& output, const Fixed& data)
 {
-    output << data.toFloat();
-    return (output);
+    // output << data.toFloat();
+    return (output << data.toFloat());
 }
 
 
