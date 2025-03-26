@@ -9,8 +9,8 @@ Animal::~Animal(){
 }
 
 Animal::Animal(const Animal &copy){
-    *this = copy;
     std::cout << "Animal copy constructor called" << std::endl;
+    *this = copy;
 }
 
 Animal &Animal::operator=(const Animal &copy){
