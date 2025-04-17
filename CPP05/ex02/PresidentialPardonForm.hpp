@@ -23,4 +23,4 @@ public:
     void execute(Bureaucrat const &executor) const;
 };
 
-#endif 
+#endif

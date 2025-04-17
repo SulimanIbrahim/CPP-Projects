@@ -1,4 +1,5 @@
 #include "RobotomyRequestForm.hpp"
+#include <unistd.h> // For usleep
 
 // Constructors and Destructor
 RobotomyRequestForm::RobotomyRequestForm() 
@@ -41,7 +42,7 @@ std::string RobotomyRequestForm::getTarget() const
     return this->_target;
 }
 
-// Execute method override
+// Execute method override with enhanced drilling simulation
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
     // Check if the form is signed and the bureaucrat has enough grade
@@ -50,8 +51,40 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
     if (executor.getGrade() > this->getGradeToExecute())
         throw AForm::GradeTooLowException();
     
-    // Make drilling noises
-    std::cout << "* DRILLING NOISES * BRR... BRR... BRR... *" << std::endl;
+    // Make drilling noises with visual and audio effects
+    std::cout << "\033[1;33m"; // Bright yellow for drilling
+    
+    // First drilling sequence
+    std::cout << "* STARTING ROBOTOMY PROCEDURE *" << std::endl;
+    usleep(500000); // 0.5 second pause
+    
+    std::cout << "* DRILLING NOISES * ";
+    for (int i = 0; i < 3; i++) {
+        std::cout << "BRR";
+        std::cout << '\a'; // Terminal bell
+        usleep(300000); // 0.3 second pause
+        std::cout << "... ";
+        usleep(200000); // 0.2 second pause
+    }
+    std::cout << "*" << std::endl;
+    
+    // Second drilling sequence
+    std::cout << "* INTENSIFYING DRILL * ";
+    for (int i = 0; i < 5; i++) {
+        std::cout << "DR-R-R";
+        std::cout << '\a'; // Terminal bell
+        usleep(200000); // 0.2 second pause
+        if (i < 4) std::cout << " ";
+    }
+    std::cout << " *" << std::endl;
+    
+    // Final drilling and results
+    std::cout << "* FINAL CALIBRATION * ";
+    std::cout << "WHIRRRRRR";
+    std::cout << '\a' << '\a'; // Multiple bells
+    std::cout << " *\n" << std::endl;
+    
+    std::cout << "\033[0m"; // Reset color
     
     // Seed the random number generator
     static bool seeded = false;
@@ -64,10 +97,10 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
     // 50% chance of success
     if (std::rand() % 2)
     {
-        std::cout << this->_target << " has been robotomized successfully!" << std::endl;
+        std::cout << "\033[1;32m" << this->_target << " has been robotomized successfully! 🤖" << "\033[0m" << std::endl;
     }
     else
     {
-        std::cout << "Robotomy of " << this->_target << " has failed!" << std::endl;
+        std::cout << "\033[1;31mRobotomy of " << this->_target << " has failed! 💥" << "\033[0m" << std::endl;
     }
 } 
