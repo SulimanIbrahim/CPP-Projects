@@ -3,38 +3,40 @@
 
 #include <stack>
 #include <deque>
+#include <stdexcept>
+#include <string>
 
 template <typename T>
-class MutantStack : public std::stack<T> {
+class MutantStack : public std::stack<T, std::deque<T> > {
 public:
     // Use the underlying container's iterator types
-    typedef typename std::stack<T>::container_type::iterator iterator;
-    typedef typename std::stack<T>::container_type::const_iterator const_iterator;
-    typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
-    typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
+    typedef typename std::deque<T>::iterator iterator;
+    typedef typename std::deque<T>::const_iterator const_iterator;
+    typedef typename std::deque<T>::reverse_iterator reverse_iterator;
+    typedef typename std::deque<T>::const_reverse_iterator const_reverse_iterator;
 
     // Orthodox Canonical Form
-    MutantStack() : std::stack<T>() {}
-    MutantStack(const MutantStack& other) : std::stack<T>(other) {}
-    MutantStack& operator=(const MutantStack& other) {
-        if (this != &other)
-            std::stack<T>::operator=(other);
-        return *this;
-    }
-    ~MutantStack() {}
+    MutantStack();
+    MutantStack(const MutantStack& other);
+    MutantStack& operator=(const MutantStack& other);
+    ~MutantStack();
 
-    // Iterator methods
-    iterator begin() { return this->c.begin(); }
-    iterator end() { return this->c.end(); }
+    // Overridden methods
+    void pop();
+    T top() const;
     
-    const_iterator begin() const { return this->c.begin(); }
-    const_iterator end() const { return this->c.end(); }
+    // Iterator methods
+    iterator begin();
+    iterator end();
+    
+    const_iterator begin() const;
+    const_iterator end() const;
 
-    reverse_iterator rbegin() { return this->c.rbegin(); }
-    reverse_iterator rend() { return this->c.rend(); }
+    reverse_iterator rbegin();
+    reverse_iterator rend();
 
-    const_reverse_iterator rbegin() const { return this->c.rbegin(); }
-    const_reverse_iterator rend() const { return this->c.rend(); }
+    const_reverse_iterator rbegin() const;
+    const_reverse_iterator rend() const;
 };
 
 #endif
