@@ -5,6 +5,8 @@
 #include <deque>
 #include <string>
 #include <sstream>
+#include <utility>
+    
 
 class PmergeMe
 {
@@ -15,10 +17,14 @@ class PmergeMe
         void parseInput(const std::string &input);
         void isNumber(const std::string &token);
         void isDuplicate();
-        // void fordJohnsonForVector();
-        // void fordJohnsonForDeque();
-        // void calculateTime();
-        // void printResult();
+        void fordJohnsonForVector();
+        void fordJohnsonForDeque();
+        void calculateTime();
+        void printResult();
+        
+        // Time measurement variables
+        double _vectorTime;
+        double _dequeTime;
 
     public:
         PmergeMe();
