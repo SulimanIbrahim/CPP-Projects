@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            margin-bottom: 30px;
+        }
+        .step {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .array {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .element {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+        }
+        .pair {
+            display: flex;
+            gap: 5px;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+        .larger {
+            background-color: #e74c3c;
+        }
+        .smaller {
+            background-color: #2ecc71;
+        }
+        .stray {
+            background-color: #f39c12;
+        }
+        .inserted {
+            animation: pulse 1s;
+        }
+        .pair-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .insertion-step {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e8f4f8;
+            border-radius: 5px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Ford-Johnson Sort Visualization</h1>
+    <h2>Example with [78, 18, 32, 8, 4, 6, 1]</h2>
+    
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #e74c3c;"></div>
+            <span>Larger elements</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #2ecc71;"></div>
+            <span>Smaller elements</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #f39c12;"></div>
+            <span>Stray element</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="step">
+            <h3>Step 1: Initial Array</h3>
+            <div class="array">
+                <div class="element">78</div>
+                <div class="element">18</div>
+                <div class="element">32</div>
+                <div class="element">8</div>
+                <div class="element">4</div>
+                <div class="element">6</div>
+                <div class="element">1</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 2: Remove Stray Element (odd length)</h3>
+            <div class="array">
+                <div class="element">78</div>
+                <div class="element">18</div>
+                <div class="element">32</div>
+                <div class="element">8</div>
+                <div class="element">4</div>
+                <div class="element">6</div>
+            </div>
+            <div class="array">
+                <div class="element stray">1</div>
+                <span>← Stray element</span>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 3: Form and Sort Pairs</h3>
+            <div class="pair-container">
+                <div class="pair">
+                    <div class="element larger">78</div>
+                    <div class="element smaller">18</div>
+                </div>
+                <div class="pair">
+                    <div class="element larger">32</div>
+                    <div class="element smaller">8</div>
+                </div>
+                <div class="pair">
+                    <div class="element larger">6</div>
+                    <div class="element smaller">4</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 4: Separate into Larger and Smaller Sequences</h3>
+            <p>Larger sequence:</p>
+            <div class="array">
+                <div class="element larger">78</div>
+                <div class="element larger">32</div>
+                <div class="element larger">6</div>
+            </div>
+            <p>Smaller sequence:</p>
+            <div class="array">
+                <div class="element smaller">18</div>
+                <div class="element smaller">8</div>
+                <div class="element smaller">4</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Step 5: Recursively Sort Larger Sequence</h3>
+            <p>Apply the same process to [78, 32, 6]:</p>
+            <div class="pair-container">
+                <div class="pair">
+                    <div class="element larger">78</div>
+                    <div class="element smaller">32</div>
+                </div>
+                <div class="element stray">6</div>
+            </div>
+            <p>Sort again to get: [78, 6, 32] (after sorting)</p>
+        </div>
+        
+        <div class="step">
+            <h3>Step 6: Calculate Jacobsthal Numbers</h3>
+            <p>For smaller sequence length = 3, we need Jacobsthal numbers < 3:</p>
+            <p>J(0) = 0, J(1) = 1, J(2) = 1</p>
+            <p>We use these to determine insertion order.</p>
+        </div>
+
+        <div class="step">
+            <h3>Step 7: Determine Insertion Order</h3>
+            <p>Insertion order calculation:</p>
+            <ul>
+                <li>Start with index 0 (always first): 0</li>
+                <li>Using Jacobsthal gaps in reverse between J(i-1) and J(i):</li>
+                <li>Between J(0)=0 and J(1)=1: None</li>
+                <li>Between J(1)=1 and J(2)=1: None</li>
+                <li>Remaining elements: 2</li>
+            </ul>
+            <p>Final insertion order: [0, 2, 1]</p>
+            <p>This means insert element at index 0, then index 2, then index 1</p>
+        </div>
+
+        <div class="step">
+            <h3>Step 8: Insertion Process</h3>
+            
+            <div class="insertion-step">
+                <p>Start with sorted larger sequence:</p>
+                <div class="array">
+                    <div class="element larger">6</div>
+                    <div class="element larger">32</div>
+                    <div class="element larger">78</div>
+                </div>
+            </div>
+
+            <div class="insertion-step">
+                <p>Insert smaller[0] = 18 (using binary search):</p>
+                <div class="array">
+                    <div class="element larger">6</div>
+                    <div class="element larger">32</div>
+                    <div class="element smaller inserted">18</div>
+                    <div class="element larger">78</div>
+                </div>
+            </div>
+
+            <div class="insertion-step">
+                <p>Insert smaller[2] = 4 (using binary search):</p>
+                <div class="array">
+                    <div class="element smaller inserted">4</div>
+                    <div class="element larger">6</div>
+                    <div class="element larger">32</div>
+                    <div class="element smaller">18</div>
+                    <div class="element larger">78</div>
+                </div>
+            </div>
+
+            <div class="insertion-step">
+                <p>Insert smaller[1] = 8 (using binary search):</p>
+                <div class="array">
+                    <div class="element smaller">4</div>
+                    <div class="element larger">6</div>
+                    <div class="element smaller inserted">8</div>
+                    <div class="element larger">32</div>
+                    <div class="element smaller">18</div>
+                    <div class="element larger">78</div>
+                </div>
+            </div>
+
+            <div class="insertion-step">
+                <p>Insert stray element 1 (using binary search):</p>
+                <div class="array">
+                    <div class="element stray inserted">1</div>
+                    <div class="element smaller">4</div>
+                    <div class="element larger">6</div>
+                    <div class="element smaller">8</div>
+                    <div class="element larger">32</div>
+                    <div class="element smaller">18</div>
+                    <div class="element larger">78</div>
+                </div>
+            </div>
+            
+            <div class="insertion-step">
+                <p><strong>Final Step: Binary Search Sort for Remaining Elements</strong></p>
+                <p>The algorithm performs a final pass to ensure all elements are in correct order. Element 18 needs to be moved before 32:</p>
+                <div class="array">
+                    <div class="element stray">1</div>
+                    <div class="element smaller">4</div>
+                    <div class="element larger">6</div>
+                    <div class="element smaller">8</div>
+                    <div class="element smaller inserted">18</div>
+                    <div class="element larger">32</div>
+                    <div class="element larger">78</div>
+                </div>
+                <p>Note: This final reordering step is implicitly part of the Ford-Johnson algorithm's insertion phase.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>Final Sorted Array</h3>
+            <div class="array">
+                <div class="element">1</div>
+                <div class="element">4</div>
+                <div class="element">6</div>
+                <div class="element">8</div>
+                <div class="element">18</div>
+                <div class="element">32</div>
+                <div class="element">78</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

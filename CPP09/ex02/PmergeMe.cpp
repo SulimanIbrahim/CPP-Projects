@@ -132,24 +132,22 @@ void printVector(const std::string& label, const std::vector<int>& vec) {
 
 std::vector<size_t> PmergeMe::calculateInsertionOrder(size_t smallerSize) {
     std::vector<size_t> jacobsthal = generateJacobsthalNumbers(smallerSize);
-    
+    // Jacobsthal sequence: 0, 1, 1, 3, 5, 11, 21, 43, ...
     std::vector<size_t> insertionOrder;
     if (smallerSize > 0) {
-        insertionOrder.push_back(0); // Always start with the first element
+        insertionOrder.push_back(0);
     }
     
     for (size_t i = 1; i < jacobsthal.size(); i++) {
         size_t prev = jacobsthal[i - 1];
         size_t curr = jacobsthal[i];
         
-        // Add positions in reverse order between Jacobsthal gaps
         for (size_t j = curr; j > prev; j--) {
             if (j - 1 < smallerSize) {
                 insertionOrder.push_back(j - 1);
             }
         }
     }
-    // Add any remaining positions
     size_t last = jacobsthal.empty() ? 0 : jacobsthal.back();
     for (size_t i = last + 1; i <= smallerSize; i++) {
         if (i - 1 < smallerSize && i - 1 > 0) { // Skip first element already inserted

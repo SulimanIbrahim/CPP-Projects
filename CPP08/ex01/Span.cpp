@@ -22,7 +22,6 @@ void Span::addNumber(int number) {
     _numbers.push_back(number);
 }
 
-
 int Span::shortestSpan() const {
     if (_numbers.size() < 2)
         throw NoSpanException();
@@ -45,8 +44,8 @@ int Span::longestSpan() const {
     if (_numbers.size() < 2)
         throw NoSpanException();
         
-    std::pair<std::vector<int>::const_iterator, std::vector<int>::const_iterator> minmax = 
-        std::minmax_element(_numbers.begin(), _numbers.end());
-        
-    return *minmax.second - *minmax.first;
+    std::vector<int>::const_iterator minIt = std::min_element(_numbers.begin(), _numbers.end());
+    std::vector<int>::const_iterator maxIt = std::max_element(_numbers.begin(), _numbers.end());
+    
+    return *maxIt - *minIt;
 }
